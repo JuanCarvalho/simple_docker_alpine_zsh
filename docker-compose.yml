@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  my-alpine:
+    container_name: my_alpine
+    hostname: my_alpine
+
+    # Build Dockerfile
+    build: .
+
+    # Set image name
+    image: ${IMAGE_NAME}
+
+    # Create a simple ENV variable
+    environment:
+      - MY_VAR1=${VAR1}
+
+    # Set local volume
+    volumes:
+      - ./src:/src:rw
+
+    # Link port 80 to host (only for show it)
+    ports:
+      - 80:80
+
+    # Set network
+    networks:
+      - localhost_docker
+
+    stdin_open: true # docker exec -i
+    tty: true        # docker exec -t
+
+networks:
+  localhost_docker:
+    external: true
